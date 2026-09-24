@@ -4,3 +4,5 @@
 
 - 预览：Vercel 自动发版
 - 本地看：直接打开 `index.html`
+
+> 部署：Vercel 自动发版（main 分支）
