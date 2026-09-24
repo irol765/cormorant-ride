@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鸬鸱骑车 · 全网最火的骑手</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #1a1033;
+    --paper: #fff8ec;
+    --accent: #ff5c38;
+    --sun: #ffb020;
+  }
+  body {
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+  /* ---------- nav ---------- */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 32px; max-width: 1100px; margin: 0 auto;
+  }
+  .logo { font-weight: 900; font-size: 20px; letter-spacing: 1px; }
+  .logo span { color: var(--accent); }
+  .tag {
+    font-size: 12px; background: var(--ink); color: #fff;
+    padding: 6px 14px; border-radius: 999px; letter-spacing: 2px;
+  }
+  /* ---------- hero ---------- */
+  .hero {
+    max-width: 1100px; margin: 0 auto; padding: 40px 32px 0;
+    text-align: center;
+  }
+  .kicker {
+    display: inline-block; font-size: 14px; letter-spacing: 4px;
+    border: 2px solid var(--ink); border-radius: 999px;
+    padding: 8px 20px; margin-bottom: 24px; background: #fff;
+  }
+  h1 {
+    font-size: clamp(48px, 9vw, 110px); font-weight: 900; line-height: 1.05;
+    letter-spacing: 2px;
+  }
+  h1 .hl {
+    background: linear-gradient(180deg, transparent 62%, var(--sun) 62%);
+    padding: 0 8px;
+  }
+  .sub {
+    margin: 20px auto 0; max-width: 620px; font-size: 18px;
+    line-height: 1.8; color: #5a4a6a;
+  }
+  .cta-row { margin-top: 28px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    font-size: 17px; font-weight: 700; padding: 14px 34px; border-radius: 999px;
+    border: 2px solid var(--ink); cursor: pointer; transition: transform .15s;
+  }
+  .btn:active { transform: scale(.95); }
+  .btn.primary { background: var(--accent); color: #fff; box-shadow: 4px 4px 0 var(--ink); }
+  .btn.ghost { background: #fff; color: var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+  /* ---------- scene ---------- */
+  .scene-wrap {
+    max-width: 1100px; margin: 36px auto 0; padding: 0 32px;
+  }
+  .scene {
+    position: relative; border: 3px solid var(--ink); border-radius: 24px;
+    background: linear-gradient(180deg, #2b1b5e 0%, #7b2f8f 45%, #ff7b4d 72%, #ffc46b 100%);
+    overflow: hidden; box-shadow: 8px 8px 0 var(--ink);
+  }
+  .scene svg { display: block; width: 100%; height: auto; }
+  .speed-lines { opacity: 0; transition: opacity .3s; }
+  .scene.boost .speed-lines { opacity: 1; }
+  .scene.boost .bike-group { animation-duration: .45s !important; }
+  .wheel { transform-box: fill-box; transform-origin: center; animation: spin 1.1s linear infinite; }
+  .scene.boost .wheel { animation-duration: .35s; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .bike-group { animation: bob 1.1s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .cloud { animation: drift 26s linear infinite; }
+  .cloud.c2 { animation-duration: 38s; animation-delay: -12s; }
+  .cloud.c3 { animation-duration: 30s; animation-delay: -22s; }
+  @keyframes drift { from { transform: translateX(-160px); } to { transform: translateX(1160px); } }
+  .dash { animation: dashmove .5s linear infinite; }
+  .scene.boost .dash { animation-duration: .18s; }
+  @keyframes dashmove { to { stroke-dashoffset: -40; } }
+  .cheer {
+    position: absolute; top: 18px; right: 22px; background: #fff;
+    border: 2px solid var(--ink); border-radius: 999px; padding: 8px 18px;
+    font-weight: 800; font-size: 15px; box-shadow: 3px 3px 0 var(--ink);
+  }
+  .cheer b { color: var(--accent); font-size: 19px; }
+  /* ---------- stats ---------- */
+  .stats {
+    max-width: 1100px; margin: 56px auto 0; padding: 0 32px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .stat {
+    background: #fff; border: 3px solid var(--ink); border-radius: 20px;
+    padding: 28px 16px; text-align: center; box-shadow: 6px 6px 0 var(--ink);
+  }
+  .stat .num { font-size: 44px; font-weight: 900; color: var(--accent); }
+  .stat .lbl { margin-top: 8px; font-size: 15px; color: #5a4a6a; letter-spacing: 1px; }
+  /* ---------- why ---------- */
+  .section { max-width: 1100px; margin: 72px auto 0; padding: 0 32px; }
+  .section h2 { font-size: 34px; font-weight: 900; text-align: center; margin-bottom: 8px; }
+  .section .desc { text-align: center; color: #5a4a6a; margin-bottom: 32px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .card {
+    background: #fff; border: 3px solid var(--ink); border-radius: 20px;
+    padding: 28px 24px; box-shadow: 6px 6px 0 var(--ink);
+  }
+  .card .emoji { font-size: 40px; }
+  .card h3 { margin: 14px 0 10px; font-size: 20px; }
+  .card p { color: #5a4a6a; line-height: 1.75; font-size: 15px; }
+  /* ---------- moments ---------- */
+  .moments { display: flex; flex-direction: column; gap: 16px; }
+  .moment {
+    display: flex; gap: 18px; align-items: flex-start;
+    background: #fff; border: 3px solid var(--ink); border-radius: 18px;
+    padding: 20px 24px; box-shadow: 5px 5px 0 var(--ink);
+  }
+  .moment .time {
+    flex-shrink: 0; background: var(--ink); color: #fff; font-weight: 800;
+    border-radius: 12px; padding: 8px 14px; font-size: 14px;
+  }
+  .moment p { line-height: 1.7; font-size: 16px; padding-top: 6px; }
+  .moment p b { color: var(--accent); }
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: 80px; background: var(--ink); color: #fff;
+    text-align: center; padding: 44px 24px;
+  }
+  footer .f-title { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
+  footer p { color: #b9a8d6; font-size: 14px; line-height: 1.8; }
+  .feather {
+    position: fixed; pointer-events: none; font-size: 22px; z-index: 99;
+    animation: fall 1.6s ease-in forwards;
+  }
+  @keyframes fall {
+    to { transform: translateY(46vh) rotate(320deg); opacity: 0; }
+  }
+  @media (max-width: 720px) {
+    .stats, .cards { grid-template-columns: 1fr; }
+    nav { padding: 14px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">鸬鸱骑行 <span>CLUB</span></div>
+  <div class="tag">DEMO · 概念站</div>
+</nav>
+
+<div class="hero">
+  <div class="kicker">全 网 爆 火 · 禽 界 顶 流</div>
+  <h1>一 只 <span class="hl">鸬鸱</span><br>骑 车 上 下 班</h1>
+  <p class="sub">别人骑车靠腿，它骑车靠翅膀。<br>当一只鸬鸱学会踩单车，人类最后的通勤优越感也没了。</p>
+  <div class="cta-row">
+    <button class="btn primary" id="cheerBtn">为它加油 🎉</button>
+    <button class="btn ghost" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})">为什么这么火？</button>
+  </div>
+</div>
+
+<div class="scene-wrap">
+  <div class="scene" id="scene">
+    <div class="cheer">加油值 <b id="cheerCount">0</b></div>
+    <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" aria-label="鸬鸱骑车">
+      <!-- sun -->
+      <circle cx="830" cy="120" r="62" fill="#ffd76b"/>
+      <circle cx="830" cy="120" r="80" fill="#ffd76b" opacity="0.25"/>
+      <!-- clouds -->
+      <g class="cloud c1" opacity="0.9"><ellipse cx="200" cy="90" rx="70" ry="26" fill="#fff"/><ellipse cx="250" cy="78" rx="52" ry="22" fill="#fff"/></g>
+      <g class="cloud c2" opacity="0.7"><ellipse cx="500" cy="60" rx="60" ry="22" fill="#fff"/><ellipse cx="545" cy="50" rx="44" ry="18" fill="#fff"/></g>
+      <g class="cloud c3" opacity="0.8"><ellipse cx="760" cy="150" rx="56" ry="20" fill="#fff"/></g>
+      <!-- distant hills -->
+      <path d="M0 330 Q 180 270 360 320 T 720 315 T 1000 330 L1000 460 L0 460 Z" fill="#3a2060" opacity="0.55"/>
+      <!-- road -->
+      <rect x="0" y="360" width="1000" height="100" fill="#241a3f"/>
+      <line class="dash" x1="0" y1="410" x2="1000" y2="410" stroke="#ffd76b" stroke-width="7" stroke-dasharray="26 14"/>
+      <!-- speed lines -->
+      <g class="speed-lines" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.8">
+        <line x1="60" y1="150" x2="180" y2="150"/><line x1="40" y1="210" x2="200" y2="210"/>
+        <line x1="70" y1="270" x2="190" y2="270"/><line x1="820" y1="180" x2="940" y2="180"/>
+        <line x1="840" y1="240" x2="950" y2="240"/>
+      </g>
+      <!-- ======= bike + cormorant ======= -->
+      <g class="bike-group">
+        <!-- wheels -->
+        <g class="wheel">
+          <circle cx="330" cy="360" r="52" fill="none" stroke="#101020" stroke-width="10"/>
+          <circle cx="330" cy="360" r="8" fill="#101020"/>
+          <line x1="330" y1="308" x2="330" y2="412" stroke="#101020" stroke-width="4"/>
+          <line x1="278" y1="360" x2="382" y2="360" stroke="#101020" stroke-width="4"/>
+          <line x1="293" y1="323" x2="367" y2="397" stroke="#101020" stroke-width="4"/>
+          <line x1="367" y1="323" x2="293" y2="397" stroke="#101020" stroke-width="4"/>
+        </g>
+        <g class="wheel">
+          <circle cx="620" cy="360" r="52" fill="none" stroke="#101020" stroke-width="10"/>
+          <circle cx="620" cy="360" r="8" fill="#101020"/>
+          <line x1="620" y1="308" x2="620" y2="412" stroke="#101020" stroke-width="4"/>
+          <line x1="568" y1="360" x2="672" y2="360" stroke="#101020" stroke-width="4"/>
+          <line x1="583" y1="323" x2="657" y2="397" stroke="#101020" stroke-width="4"/>
+          <line x1="657" y1="323" x2="583" y2="397" stroke="#101020" stroke-width="4"/>
+        </g>
+        <!-- frame -->
+        <g stroke="#ff5c38" stroke-width="11" stroke-linecap="round" fill="none">
+          <line x1="330" y1="360" x2="470" y2="360"/>
+          <line x1="470" y1="360" x2="620" y2="360"/>
+          <line x1="470" y1="360" x2="420" y2="270"/>
+          <line x1="420" y1="270" x2="560" y2="270"/>
+          <line x1="560" y1="270" x2="620" y2="360"/>
+          <line x1="560" y1="270" x2="600" y2="212"/>
+          <line x1="600" y1="212" x2="620" y2="360"/>
+        </g>
+        <line x1="400" y1="262" x2="445" y2="262" stroke="#101020" stroke-width="12" stroke-linecap="round"/>
+        <line x1="588" y1="204" x2="616" y2="204" stroke="#101020" stroke-width="10" stroke-linecap="round"/>
+        <!-- cormorant body -->
+        <ellipse cx="450" cy="228" rx="72" ry="44" fill="#1c1c2b"/>
+        <!-- tail feathers -->
+        <path d="M382 220 L330 196 L340 224 L326 232 L384 244 Z" fill="#1c1c2b"/>
+        <!-- wing holding handlebar -->
+        <path d="M470 220 Q 540 210 596 208 Q 560 236 500 248 Q 470 244 470 220 Z" fill="#2e2e45"/>
+        <path d="M500 232 Q 548 226 588 214" stroke="#4a4a6a" stroke-width="4" fill="none"/>
+        <!-- long neck -->
+        <path d="M505 205 C 540 170 560 130 585 105 C 595 95 610 95 612 108 C 600 130 580 165 545 200 Z" fill="#1c1c2b"/>
+        <!-- head -->
+        <ellipse cx="612" cy="100" rx="26" ry="22" fill="#1c1c2b"/>
+        <!-- beak -->
+        <path d="M634 94 L 672 102 L 634 112 Z" fill="#ffb020"/>
+        <!-- eye -->
+        <circle cx="616" cy="94" r="6" fill="#fff"/>
+        <circle cx="618" cy="94" r="3" fill="#101020"/>
+        <!-- sporty headband -->
+        <path d="M590 88 Q 612 76 634 86" stroke="#ff5c38" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <!-- legs to pedals -->
+        <line x1="450" y1="268" x2="470" y2="340" stroke="#1c1c2b" stroke-width="10" stroke-linecap="round"/>
+        <line x1="490" y1="268" x2="512" y2="336" stroke="#1c1c2b" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="470" cy="348" r="9" fill="#ffb020"/>
+        <circle cx="512" cy="344" r="9" fill="#ffb020"/>
+        <!-- motion feather -->
+        <path d="M360 250 q -26 -8 -40 -28" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.7"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="num"><span class="count" data-to="42">0</span></div><div class="lbl">最高时速 km/h（下坡）</div></div>
+  <div class="stat"><div class="num"><span class="count" data-to="1286">0</span></div><div class="lbl">本周被拍到次数</div></div>
+  <div class="stat"><div class="num"><span class="count" data-to="99">0</span>%</div><div class="lbl">路人看完想养一只</div></div>
+</div>
+
+<div class="section" id="why">
+  <h2>它为什么这么火？</h2>
+  <p class="desc">专家（网友）分析了三大原因</p>
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">🚲</div>
+      <h3>反差萌拉满</h3>
+      <p>鸬鸱，捕鱼界的潜水冠军，平时一脸严肃潜水抓鱼。现在它蹬着二八大杠，脖子一伸一缩——谁看了不说一句"好拼"。</p>
+    </div>
+    <div class="card">
+      <div class="emoji">😌</div>
+      <h3>松弛感天花板</h3>
+      <p>人类骑车：码表、心率、功率，一个不能少。鸬鸱骑车：没有码表，没有配速，鱼获全靠缘分。骑的是车，活的是心态。</p>
+    </div>
+    <div class="card">
+      <div class="emoji">📸</div>
+      <h3>出片率 100%</h3>
+      <p>长脖子 + 小单车，天生的九头身。随便一拍都是大片，难怪全网都在转：这哪是鸟，这是行走的流量密码。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>名场面时间线</h2>
+  <p class="desc">根据网友目击报告整理（本页纯属虚构，如有雷同，那鸟挺忙）</p>
+  <div class="moments">
+    <div class="moment"><div class="time">清晨 6:00</div><p><b>早起 bird  Bird：</b>鸬鸱准时出现在江边绿道，热身三圈，顺便抓了条鱼当早餐——真正的"骑行前碳水补充"。</p></div>
+    <div class="moment"><div class="time">中午 12:30</div><p><b>等红灯：</b>被拍到在路口单脚撑地等红灯，交警表示"模范骑手，建议全市鸟类学习"。</p></div>
+    <div class="moment"><div class="time">傍晚 18:00</div><p><b>夜骑：</b>脖子上挂了个小夜灯，车尾绑了条鱼——一边夜骑一边遛晚饭，时间管理大师。</p></div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-title">鸬鸱骑行 CLUB 🚲</div>
+  <p>本页面为演示站点，所有内容纯属虚构娱乐<br>Demo built & deployed by FRIDAY · Powered by Vercel</p>
+</footer>
+
+<script>
+  // 数字滚动
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target, to = +el.dataset.to;
+      const t0 = performance.now(), dur = 1400;
+      (function tick(t) {
+        const p = Math.min((t - t0) / dur, 1);
+        el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count').forEach(el => io.observe(el));
+
+  // 加油
+  let cheers = 0;
+  const scene = document.getElementById('scene');
+  const cheerCount = document.getElementById('cheerCount');
+  const feathers = ['🪶', '🎉', '🚲', '💨', '⭐'];
+  document.getElementById('cheerBtn').addEventListener('click', ev => {
+    cheers++;
+    cheerCount.textContent = cheers;
+    scene.classList.add('boost');
+    clearTimeout(scene._t);
+    scene._t = setTimeout(() => scene.classList.remove('boost'), 1600);
+    for (let i = 0; i < 10; i++) {
+      const s = document.createElement('span');
+      s.className = 'feather';
+      s.textContent = feathers[Math.floor(Math.random() * feathers.length)];
+      s.style.left = (ev.clientX + (Math.random() - .5) * 120) + 'px';
+      s.style.top = (ev.clientY - 10) + 'px';
+      s.style.animationDelay = (Math.random() * .3) + 's';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 2200);
+    }
+  });
+</script>
+</body>
+</html>
