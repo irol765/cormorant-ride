@@ -88,7 +88,7 @@
 
 <nav>
   <div class="logo">鸬鸱骑行 <span>CLUB</span></div>
-  <div class="tag">DEMO · 概念站 v2</div>
+  <div class="tag">DEMO · 概念站 v3</div>
 </nav>
 
 <div class="hero">
@@ -105,7 +105,7 @@
   <div class="scene" id="scene">
     <div class="cheer">加油值 <b id="cheerCount">0</b></div>
     <div class="phase" id="phasePill" title="点击切换">🌇 黄昏</div>
-    <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" aria-label="鸬鸱骑车">
+    <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" aria-label="鸬鸱骑车">
       <defs>
         <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#1d1440"/><stop offset=".45" stop-color="#5b2a86"/>
@@ -113,11 +113,19 @@
           <stop offset="1" stop-color="#ffc46b"/>
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="1000" height="460" fill="url(#skyG)"/>
+      <rect x="0" y="0" width="1000" height="600" fill="url(#skyG)"/>
+      <g id="world" transform="translate(0 140)">
       <g id="stars" fill="#fff">
         <circle class="twinkle" cx="120" cy="50" r="2.4"/><circle class="twinkle" cx="300" cy="30" r="1.8" style="animation-delay:.7s"/>
         <circle class="twinkle" cx="520" cy="44" r="2.1" style="animation-delay:1.3s"/><circle class="twinkle" cx="700" cy="26" r="1.6" style="animation-delay:.4s"/>
         <circle class="twinkle" cx="900" cy="60" r="2.2" style="animation-delay:1.8s"/><circle class="twinkle" cx="420" cy="70" r="1.5" style="animation-delay:2.2s"/>
+      </g>
+      <!-- moon (dusk) -->
+      <g id="moonG" opacity="0.9">
+        <circle cx="170" cy="120" r="38" fill="#f4f1de"/>
+        <circle cx="157" cy="108" r="7" fill="#e0dbc2"/>
+        <circle cx="182" cy="128" r="5" fill="#e0dbc2"/>
+        <circle cx="166" cy="136" r="4" fill="#e0dbc2"/>
       </g>
       <!-- sun -->
       <g id="sunG">
@@ -211,6 +219,7 @@
             <path class="bandtail" d="M580 96 q -16 4 -24 14" stroke="#ff5c38" stroke-width="5" fill="none" stroke-linecap="round"/>
           </g>
         </g>
+      </g>
       </g>
     </svg>
   </div>
@@ -315,6 +324,7 @@
     $("roadBase").setAttribute("fill", mix(DUSK.road, DAWN.road, p));
     $("roadEdge").setAttribute("fill", mix(DUSK.roadEdge, DAWN.roadEdge, p));
     $("stars").setAttribute("opacity", (DUSK.stars * (1 - p)).toFixed(2));
+    $("moonG").setAttribute("opacity", (0.9 * (1 - p)).toFixed(2));
     $("sunG").setAttribute("transform", `translate(${(-660 * p).toFixed(1)} 0)`);
   }
 
